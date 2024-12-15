@@ -1,0 +1,26 @@
+name: CI/CD E.L.B.E. WSL2
+on:
+  push:
+    branches: [master]
+jobs:
+  build:
+    # always windows. why would you use wsl on linux or macos 😂
+    runs-on: windows-latest
+    steps:
+      - name: Prepare git to leave line endings alone
+        run: git config --global core.autocrlf input
+      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: vedantmgoyal9/setup-wsl2@main
+        with:
+          distro: Debian
+      - name: Update Debian
+        run: apt update && apt upgrade -y
+        shell: wsl-run {0}
+      - name: Install dependencies
+        run: apt install -y python3 python3-debian python3-mako python3-lxml python3-apt python3-gpg python3-suds python3-libvirt qemu-utils qemu-kvm p7zip-full make python3-passlib libvirt-clients libvirt-daemon-system debian-archive-keyring bzip2
+        shell: wsl-run {0}
+      - name: Run E.L.B.E. example
+        run: |
+          ./elbe initvm create ./examples/armhf-ti-beaglebone-black.xml
+        shell: wsl-run {0}

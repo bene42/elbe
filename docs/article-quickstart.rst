@@ -81,6 +81,8 @@ Then run (as root):
    # apt update
    # apt install elbe
 
+.. _create-initvm:
+
 Create initvm and submit XML files
 ==================================
 

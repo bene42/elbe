@@ -9,6 +9,7 @@ ELBE docs
    :maxdepth: 2
 
    article-quickstart
+   article-wsl2
    article-elbeoverview-en
    article-elbe-schema-reference
    elbevalidate
